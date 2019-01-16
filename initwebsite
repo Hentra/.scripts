@@ -1,0 +1,5 @@
+#!/bin/sh
+
+touch index.html
+mkdir style
+touch style/main.css
