@@ -1,14 +1,14 @@
 #! /bin/sh
-ACTION=$(echo "shutdown\nrestart\nlock" | dmenu)
+ACTION=$(echo "Shutdown\nRestart\nLock" | dmenu)
 
 case $ACTION in
-	shutdown)
+	Shutdown)
 		shutdown now
 		;;
-	restart)
+	Restart)
 		systemctl reboot
 		;;
-	lock)
-		i3lock -c 000000 
+	Lock)
+		lock 
 		systemctl suspend
 esac	
