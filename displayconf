@@ -1,0 +1,19 @@
+#!/bin/sh
+LAYOUTDIR=~/.scripts/screenlayout
+
+ACTION=$(echo "$(find $LAYOUTDIR/* -printf "%f\n")\ncustom\n" | dmenu)
+
+case $ACTION in
+	custom)
+		arandr
+		;;
+	*)
+		$LAYOUTDIR/$ACTION
+esac
+
+# set background image if exists to prevent
+# having no fullscreen
+if [ -e "$HOME/.wallpaper" ] ; then
+	feh --bg-scale $HOME/.wallpaper
+fi
+
