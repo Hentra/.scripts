@@ -9,6 +9,7 @@ case $ACTION in
 		;;
 	*)
 		$LAYOUTDIR/$ACTION
+		cp $LAYOUTDIR/$ACTION $HOME/.screenlayout
 esac
 
 # set background image if exists to prevent
