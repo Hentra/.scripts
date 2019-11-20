@@ -1,0 +1,7 @@
+#!/bin/sh
+year=`date +'%Y'`
+month=$1
+
+cal $month $year
+calendar -t $month+'01' -A31 -f /usr/share/calendar/de_DE/calendar.feiertag
+
