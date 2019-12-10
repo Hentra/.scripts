@@ -1,15 +1,41 @@
 #!/bin/sh
 LAYOUTDIR=~/.scripts/screenlayout
 
-ACTION=$(echo "$(find $LAYOUTDIR/* -printf "%f\n")\ncustom\n" | dmenu)
+SIMPLE=$(echo "hdmi-left\nhdmi-top\nhdmi-right\nhdmi-bottom\ncustom" | dmenu)
 
-case $ACTION in
-	custom)
-		arandr
+case $SIMPLE in
+	hdmi-left)
+		xrandr --output DP-3 --auto --left-of eDP-1			
+		i3-msg "workspace 1, move workspace to output DP-3"
+		i3-msg "workspace 2, move workspace to output eDP-1"
 		;;
-	*)
-		$LAYOUTDIR/$ACTION
-		cp $LAYOUTDIR/$ACTION $HOME/.screenlayout
+	hdmi-top)
+		xrandr --output DP-3 --auto --above eDP-1			
+		i3-msg "workspace 1, move workspace to output DP-3"
+		i3-msg "workspace 2, move workspace to output eDP-1"
+		;;
+	hdmi-right)
+		xrandr --output DP-3 --auto --right-of eDP-1			
+		i3-msg "workspace 2, move workspace to output DP-3"
+		i3-msg "workspace 1, move workspace to output eDP-1"
+		;;
+	hdmi-bottom)
+		xrandr --output DP-3 --auto --below eDP-1			
+		i3-msg "workspace 2, move workspace to output DP-3"
+		i3-msg "workspace 1, move workspace to output eDP-1"
+		;;
+	custom)
+		CUSTOM=$(echo "$(find $LAYOUTDIR/* -printf "%f\n")\narandr\n" | dmenu)
+
+		case $CUSTOM in
+			arandr)
+				arandr
+				;;
+			*)
+				$LAYOUTDIR/$CUSTOM
+				cp $LAYOUTDIR/$CUSTOM $HOME/.screenlayout
+		esac
+		;;
 esac
 
 # set background image if exists to prevent
