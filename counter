@@ -1,0 +1,27 @@
+#!/bin/sh
+
+CHOST=141.22.26.16
+CNAME=Henri
+
+CTYPE=$(echo "Recht\nWasser\nMate" | dmenu)
+
+if [ -z "$CTYPE" ]; then
+	exit 1
+fi		
+
+case $CTYPE in
+	Recht) CPORT=2001;;
+	Mate)  CPORT=2002;;
+	Wasser)CPORT=2003;;
+esac
+
+
+CACTION=$(echo "up\nreset" | dmenu)
+
+if [ -z "$CACTION" ]; then
+	exit 1
+fi		
+
+CRESPONSE=$(curl ${CHOST}:${CPORT}/${CACTION}/${CNAME})
+
+notify-send Counter "${CRESPONSE}"

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+PACKAGE=$(find $HOME/catkin_ws/src -type f -name 'package.xml' | sed -r 's|/[^/]+$||' |uniq |fzf)
+cd $PACKAGE

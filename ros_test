@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+	echo 'No package specified'
+	exit 1
+fi
+
+PACKAGE=$1
+
+cd $HOME/catkin_ws
+catkin build $PACKAGE --catkin-make-args run_tests
+junit-cli-report-viewer build/$PACKAGE/test_results/$PACKAGE/gtest-$PACKAGE-test.xml
