@@ -3,7 +3,7 @@
 CHOST=141.22.26.16
 CNAME=Henri
 
-CTYPE=$(echo "Recht\nWasser\nMate" | dmenu)
+CTYPE=$(echo "Recht\nWasser\nMate" | rofi -width 10 -lines 3 -p "Counter" -dmenu)
 
 if [ -z "$CTYPE" ]; then
 	exit 1
@@ -16,7 +16,7 @@ case $CTYPE in
 esac
 
 
-CACTION=$(echo "up\nreset" | dmenu)
+CACTION=$(echo "up\nreset" | rofi -width 10 -lines 3 -p "Counter" -dmenu)
 
 if [ -z "$CACTION" ]; then
 	exit 1

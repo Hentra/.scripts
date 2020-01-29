@@ -1,5 +1,5 @@
 #! /bin/sh
-ACTION=$(echo "Shutdown\nRestart\nLock" | dmenu)
+ACTION=$(echo "Shutdown\nRestart\nLock" | rofi -width 10 -lines 3 -p "System" -dmenu)
 
 case $ACTION in
 	Shutdown)
