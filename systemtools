@@ -1,5 +1,5 @@
 #! /bin/sh
-ACTION=$(echo "Shutdown\nRestart\nLock" | dmenu)
+ACTION=$(echo -n "Shutdown\nRestart\nLock" | rofi -i -p System -markup-rows -width 10 -lines 5  -dmenu)
 
 case $ACTION in
 	Shutdown)
@@ -9,6 +9,5 @@ case $ACTION in
 		systemctl reboot
 		;;
 	Lock)
-		lock 
-		systemctl suspend
+		dm-tool lock
 esac	
