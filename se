@@ -1,2 +1,2 @@
 #!/bin/sh
-du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf | xargs -ro vim
+find -L ~/.config ~/.scripts -maxdepth 3 -type f,l | fzf --preview='head -100 {}' | xargs -ro vim
