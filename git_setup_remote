@@ -1,0 +1,13 @@
+#! /bin/bash
+
+REPO_LOC=$HOME/.local/src
+find $REPO_LOC -name ".git" | while read line; do
+    echo "Processing repo '$line'"
+    cd $line; cd ..
+    REMOTE_URL=$(git remote get-url origin)
+    if [[ $REMOTE_URL == *"git.haw-hamburg.de"* ]]; then
+              echo "Repository contains 'git.haw-hamburg.de'. Setting user and email"
+              git config --local user.name "Henri Burau"
+              git config --local user.email "henri.burau@haw-hamburg.de"
+    fi
+done

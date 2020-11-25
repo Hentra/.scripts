@@ -1,0 +1,7 @@
+#! /bin/bash
+
+REPO_LOC=$HOME/.local/src
+
+REPO=$(find $REPO_LOC -name ".git" | sed s%/.git%% | rofi -dmenu)
+cd $REPO
+setsid st
