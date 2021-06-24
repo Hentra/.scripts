@@ -2,6 +2,6 @@
 
 REPO_LOC=$HOME/.local/src
 
-REPO=$(find $REPO_LOC -name ".git" | sed s%/.git%% | rofi -dmenu)
-cd $REPO
-setsid st
+REPO=$(find "$REPO_LOC" -maxdepth 2 -name ".git" | sed s%/.git%%g | sed s%.*/%%g | rofi -dmenu)
+
+[ -n "$REPO" ] && (cd "$REPO_LOC/$REPO" || exit; setsid st) 
