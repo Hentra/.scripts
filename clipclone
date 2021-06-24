@@ -1,18 +1,19 @@
 #! /bin/sh
 
+xclip -h > /dev/null 2>&1 || notify-send -u critical "Clone Repository" "XClip not found"
+
 repo_loc=$HOME/.local/src
 url="$(xclip -o)"
 
 if [ -z "$url" ]; then
-    notify-send "Clone Repository" "No url found in clipboard"
+    notify-send -u critical "Clone Repository" "No url found in clipboard"
 elif [ "${url#*\ *}" != "$url"  ]; then
-    notify-send "Clone Repository" "Not a valid url:\n$url"
+    notify-send -u critical "Clone Repository" "Not a valid url:\n$url"
 else
-    cd $repo_loc 
-    ERROR=$(git clone $url 2>&1 >/dev/null)
-    if [ -z "$ERROR" ]; then
+    cd "$repo_loc" || exit
+    if ERROR=$(git clone "$url" 2>&1); then
         notify-send "Clone Repository" "Cloned succesfully"
     else
-        notify-send "Clone Repository" "$(echo $ERROR)"
+        notify-send -u critical "Clone Repository" "$ERROR"
     fi
 fi
