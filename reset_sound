@@ -1,0 +1,9 @@
+#!/bin/sh
+
+SINK_ID=$(pactl list short sources | grep ".*alsa_input.*PRO_X.*" | awk '{ print $1 }')
+
+if [ -z "$SINK_ID" ]; then
+    notify-send -u critical "Reset Teams-Sound" "PRO X Logitech not connected"
+else
+   pactl set-source-volume "$SINK_ID" 65565
+fi
