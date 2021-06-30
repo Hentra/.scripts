@@ -1,0 +1,20 @@
+#!/bin/sh
+
+TMP_FILE=/tmp/debug
+
+rm $TMP_FILE
+
+[ -z $1 ] && echo "No arguments given" && exit 1
+[ -f $1 ] || (echo "Argument is not a file" && exit 1)
+
+i=1
+
+while IFS= read -r line
+do
+   echo "$line" >> $TMP_FILE 
+   echo "echo \"Line $i\"" >> $TMP_FILE
+   i=$((i+1))
+done < "$1"
+
+sh $TMP_FILE
+
