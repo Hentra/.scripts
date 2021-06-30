@@ -1,4 +1,4 @@
 #! /bin/sh
 export ROS_MASTER_URI=http://titanicpi4.local:11311
-export ROS_HOSTNAME=$HOSTNAME.local
+export ROS_HOSTNAME=$HOST.local
 export ROSLAUNCH_SSH_UNKOWN=1
