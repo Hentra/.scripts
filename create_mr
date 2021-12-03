@@ -1,0 +1,17 @@
+#! /bin/sh
+if ! ISSUE_LIST=$(lab --no-pager issue list); then
+        exit 1;
+fi
+
+ISSUE=$(echo "$ISSUE_LIST" | sed 's/#//g' | tr -cd '[:alnum:]- \n' | tr '[:upper:]' '[:lower:]' | sed 's/\ /-/g' | rofi -i -p Issue -markup-rows -dmenu)
+
+[ -n "$ISSUE" ] || (echo "No issue selected. Aborting..."; exit 0;)
+
+ISSUE_NR=$(echo "$ISSUE" | awk 'BEGIN {FS = "-" } ; { print $1 }')
+MR_TITLE=$(echo "$ISSUE_LIST" | grep "$ISSUE_NR" | sed 's/\#[0-9]*\ //g')
+
+git checkout -b "$ISSUE"
+git push -u origin "$ISSUE"
+
+lab mr create --draft -s -m  "$MR_TITLE" -m "Closes #$ISSUE_NR"
+
