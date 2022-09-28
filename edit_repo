@@ -1,7 +1,17 @@
 #! /bin/bash
-
 REPO_LOC=$HOME/.local/src
+OPEN_VSCODE="Super+c"
 
-REPO=$(find "$REPO_LOC" -maxdepth 2 -name ".git" | sed s%/.git%%g | sed s%.*/%%g | rofi -dmenu)
+REPO=$(find "$REPO_LOC" -maxdepth 2 -name ".git" | sed s%/.git%%g | sed s%.*/%%g | rofi -dmenu -kb-custom-1 "$OPEN_VSCODE")
 
-[ -n "$REPO" ] && (cd "$REPO_LOC/$REPO" || exit; setsid st) 
+rofi_exit=$?
+if [[ $rofi_exit -eq 1 ]]; then
+    exit
+fi
+
+[ -n "$REPO" ] && (
+    case "$rofi_exit" in 
+      0) cd "$REPO_LOC/$REPO" || exit; setsid st; return;;
+      10) code "$REPO_LOC/$REPO"
+    esac
+) 
