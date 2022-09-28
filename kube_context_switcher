@@ -1,0 +1,10 @@
+#!/bin/sh
+kubectl > /dev/null || (echo "No kubectl installed"; exit)
+
+CONTEXT=$(kubectl config get-contexts -o name | rofi -i -p System -markup-rows -width 10 -lines 5  -dmenu)
+
+if ERROR=$(kubectl config use-context "$CONTEXT" 2>&1); then
+    notify-send "Kube Context Switcher" "Switched context to $CONTEXT"
+else
+    notify-send -u critical "Kube Context Switcher" "$ERROR"
+fi
