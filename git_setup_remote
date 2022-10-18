@@ -12,6 +12,7 @@ find "$REPO_LOC" -name ".git" | while read -r line; do
               git config --local user.name "Henri Burau"
               git config --local user.email "henri.burau@haw-hamburg.de"
               git config --local user.signingkey  6CF82EF795F9040C
+              git config --local commit.gpgsign  true
     fi
     )
 done

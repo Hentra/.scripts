@@ -1,0 +1,23 @@
+#!/bin/sh
+
+DOWNLOAD_DIR=/home/henri/dwn/
+
+SELECTED_PCKG=$(find "$DOWNLOAD_DIR" -maxdepth 1 -name '*.deb' | rofi -i -p Packages -markup-rows -width 30 -lines 5  -dmenu)
+
+rofi_exit=$?
+if [ $rofi_exit -eq 1 ]; then
+    echo "no package selected"
+    exit
+fi
+
+$TERMINAL -e sudo dpkg -i $SELECTED_PCKG || sudo apt install --fix-broken
+
+DELETE_PCKG=$(echo "Yes\nNo" | rofi -i -p "Delete package?" -markup-rows -width 30 -lines 5 -dmenu)
+rofi_exit=$?
+if [ $rofi_exit -eq 1 ]; then
+    echo "no choice given"
+    exit
+fi
+
+[ "$DELETE_PCKG" = "Yes" ] && rm $SELECTED_PCKG
+

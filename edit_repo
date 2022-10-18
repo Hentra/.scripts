@@ -5,7 +5,7 @@ OPEN_VSCODE="Super+c"
 REPO=$(find "$REPO_LOC" -maxdepth 2 -name ".git" | sed s%/.git%%g | sed s%.*/%%g | rofi -dmenu -kb-custom-1 "$OPEN_VSCODE")
 
 rofi_exit=$?
-if [[ $rofi_exit -eq 1 ]]; then
+if [ $rofi_exit -eq 1 ]; then
     exit
 fi
 
