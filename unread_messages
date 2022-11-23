@@ -1,0 +1,17 @@
+#! /bin/sh
+
+num_unread_messages() {
+    local password username
+
+    username="$1"
+    password="$2"
+    server="$3"
+
+    messages=$(curl -s -u "$username:$password" --url "imaps://$server" -X 'STATUS INBOX (UNSEEN)' | grep -Eo '[0-9]*')
+    printf "%s\t%s\n" "$messages" "$username"
+}
+
+num_unread_messages users@henriburau.de "$(pass  mail.henriburau.de/users@henriburau.de)" "mail.henriburau.de"
+num_unread_messages me@henriburau.de "$(pass  mail.henriburau.de/me@henriburau.de)" "mail.henriburau.de"
+num_unread_messages ace966 "$(pass  studium/ace966)" "haw-mailer.haw-hamburg.de"
+num_unread_messages henri.burau "$(pass mail/henri.burau@web.de)" "imap.web.de"
