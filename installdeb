@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOWNLOAD_DIR=/home/henri/dwn/
+DOWNLOAD_DIR=/home/henri/downloads
 
 SELECTED_PCKG=$(find "$DOWNLOAD_DIR" -maxdepth 1 -name '*.deb' | rofi -i -p Packages -markup-rows -width 30 -lines 5  -dmenu)
 
