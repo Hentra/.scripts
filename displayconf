@@ -25,11 +25,14 @@ case $SIMPLE in
 		i3-msg "workspace 1, move workspace to output eDP-1"
 		;;
 	7.81a)
+        pkill polybar
 		xrandr --output DP-1-1 --auto --right-of eDP-1			
 		xrandr --output DP-1-2 --auto --right-of DP-1-1			
 		i3-msg "workspace 3, move workspace to output DP-1-2"
 		i3-msg "workspace 2, move workspace to output DP-1-1"
 		i3-msg "workspace 1, move workspace to output eDP-1"
+        echo "DP-1-1" > ~/.mainmonitor
+        polybar main
 		;;
 	custom)
 		CUSTOM=$(echo "$(find $LAYOUTDIR/* -printf "%f\n")\narandr\n" | dmenu)
